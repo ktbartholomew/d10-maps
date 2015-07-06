@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D10 Map</title>
+    <style>
+    body, html, #canvas {
+        background: #000;
+        font-family: Consolas, Monaco, monospace;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #dcb {
+      background: rgba(0,0,0,0.75);
+      border-bottom: solid 1px white;
+      color: white;
+      font-size: 10px;
+      height: 60px;
+      position: fixed;
+      top: 0;
+      transform: translateZ(0);
+      width: 100%;
+    }
+
+    #dcb ul {
+      height: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    #dcb ul:first-of-type li {
+      border-bottom: solid 1px white;
+    }
+
+    #dcb li {
+      display: inline-block;
+      height: 30px;
+      list-style-type: none;
+      margin-right: -0.55em;
+      text-align: center;
+      width: 60px;
+    }
+
+    #dcb li:not(:first-child) {
+      border-left: solid 1px white;
+    }
+
+    #dcb li:last-child {
+      border-right: solid 1px white;
+    }
+
+    #dcb li a {
+      color: white;
+      display: inline-block;
+      line-height: 30px;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    #dcb li a.active {
+      background: rgba(0,255,0,0.2);
+    }
+
+    </style>
+</head>
+<body>
+    <div id="canvas"></div>
+    <div id="dcb">
+      <ul class="maps">
+        <li><a href="#" data-map="0">GEO</a></li>
+        <li><a href="#" data-map="1">MVA</a></li>
+        <li><a href="#" data-map="2">VFR EMER</a></li>
+        <li><a href="#" data-map="3">CLASS B</a></li>
+        <li><a href="#" data-map="4">CL-D S</a></li>
+        <li><a href="#" data-map="5">CL-D N</a></li>
+        <li><a href="#" data-map="13">D GATES</a></li>
+        <li><a href="#" data-map="14">FINAL</a></li>
+        <li><a href="#" data-map="15">GPS-A</a></li>
+      </ul>
+      <ul class="maps">
+        <li><a href="#" data-map="6">DEP S</a></li>
+        <li><a href="#" data-map="7">ARR S</a></li>
+        <li><a href="#" data-map="8">DEP N</a></li>
+        <li><a href="#" data-map="9">ARR N</a></li>
+        <li><a href="#" data-map="10">RNAV S</a></li>
+        <li><a href="#" data-map="11">RNAV N</a></li>
+        <li><a href="#" data-map="12">D FIX</a></li>
+        <li><a href="#" data-map="16">STAR FIX</a></li>
+      </ul>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+        var center = new google.maps.LatLng(32.876904, -97.01486);
+
+        var map = new google.maps.Map(document.getElementById('canvas'), {
+            backgroundColor: '#000',
+            center: center,
+            mapTypeControl: false,
+            mapTypeId: 'nomap',
+            rotateControl: true,
+            streetViewControl: false,
+            styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness": 0}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness": 0}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness": 00}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness": 0},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness": 0}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness": 0}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness": 0}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness": 0},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness": 0}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness": 0}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness": 0}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}],
+            zoom: 9,
+        });
+
+        var videoMaps = [
+          {
+            lines: [],
+            shortName: 'GEO',
+            url: 'maps/geography.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'MVA',
+            url: 'maps/mva.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'VFR EMER',
+            url: 'maps/vfr-emergency.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'CLASS B',
+            url: 'maps/class-b.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'CL-D S',
+            url: 'maps/class-d-south.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'CL-D N',
+            url: 'maps/class-d-north.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'DEP S',
+            url: 'maps/departure-south.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'ARR S',
+            url: 'maps/arrival-south.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'DEP N',
+            url: 'maps/departure-north.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'ARR N',
+            url: 'maps/arrival-north.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'RNAV S',
+            url: 'maps/rnav-south.json',
+            visible: false
+          },
+          {
+            lines: [],
+            shortName: 'RNAV N',
+            url: 'maps/rnav-north.json',
+            visible: false
+          },
+          {
+            lines: [],
+            url: 'maps/departure-rnav.json',
+          },
+          {
+            lines: [],
+            url: 'maps/departure.json',
+          },
+          {
+            lines: [],
+            url: 'maps/final.json',
+          },
+          {
+            lines: [],
+            url: 'maps/gps-approaches.json',
+          },
+          {
+            lines: [],
+            url: 'maps/star.json',
+          },
+        ];
+
+        document.addEventListener('click', function (e) {
+          if(!e.target.matches('#dcb .maps a')) {
+            return false;
+          }
+
+          e.preventDefault();
+
+          var targetMap = videoMaps[e.target.getAttribute('data-map')];
+          if(!targetMap) {
+            return false;
+          }
+
+          var drawFromJson = function() {
+            if (this.status >= 200 && this.status < 400) {
+              var lines = JSON.parse(this.responseText);
+              for(var i = 0; i < lines.length; i++) {
+                var line = new google.maps.Polyline({
+                  path: [
+                    new google.maps.LatLng(lines[i].start_lat, lines[i].start_lon),
+                    new google.maps.LatLng(lines[i].end_lat, lines[i].end_lon)
+                  ],
+                  geodesic: false,
+                  strokeColor: 'rgb(200,200,200)',
+                  strokeOpacity: 1,
+                  strokeWeight: 1
+                });
+
+                line.setMap(map);
+
+                targetMap.lines.push(line);
+                e.target.classList.add('active');
+              }
+            }
+          };
+
+          if(targetMap.lines.length === 0) {
+            var request = new XMLHttpRequest();
+            request.open('GET', targetMap.url, true);
+            request.onload = drawFromJson;
+            request.send();
+          }
+          else {
+            for(var i = 0; i < targetMap.lines.length; i++) {
+              targetMap.lines[i].setMap(null);
+            }
+
+            targetMap.lines = [];
+            e.target.classList.remove('active');
+          }
+
+
+
+        }, true);
+    </script>
+</body>
+</html>
