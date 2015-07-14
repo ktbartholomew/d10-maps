@@ -1,0 +1,25 @@
+<div class="filter name-filter">
+    <label>Airport</label>
+    <input type="text" placeholder="Airport name (e.g: KDFW)" data-ng-model="filter.airport">
+</div>
+<div class="filter name-filter">
+    <label>Name</label>
+    <input type="text" placeholder="Procedure name (e.g: SEEVR)" data-ng-model="filter.name">
+</div>
+<div data-ng-show="searchResults.length > 0">
+    <h5>Search Results</h5>
+    <ul class="search-results">
+        <li data-ng-repeat="star in searchResults track by $index">
+            <a data-ng-click="selectProcedure(star)">ADD</a>
+            {{ star.name }}
+        </li>
+    </ul>
+</div>
+<div data-ng-show="ActiveProcedures.length > 0">
+    <h5>Active Procedures</h5>
+    <ul>
+        <li data-ng-repeat="star in ActiveProcedures">
+            <a data-ng-click="removeProcedure(star)">DEL</a> {{ star.name }}
+        </li>
+    </ul>
+</div>

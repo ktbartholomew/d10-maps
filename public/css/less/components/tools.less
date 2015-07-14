@@ -1,0 +1,29 @@
+#tools {
+    background: rgba(20,20,20,0.75);
+    color: white;
+    font-size: 12px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 12px 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateZ(0);
+    width: 20vw;
+
+    .filter {
+        display: block;
+        margin: 0 auto;
+        width: 90%;
+
+        & + .filter {
+            margin-top: 12px;
+        }
+    }
+
+    li a {
+        color: #09f;
+        cursor: pointer;
+    }
+}
