@@ -27,6 +27,7 @@
     "browserify": "^10.2.6",
     "compression": "^1.5.1",
     "express": "^4.13.1",
+    "grunt-cli": "^0.1.13",
     "less": "^2.5.1",
     "lodash": "^3.10.0",
     "q": "^1.4.1"
