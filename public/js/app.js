@@ -1,6 +1,6 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/angular.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
- * @license AngularJS v1.4.2
+ * @license AngularJS v1.4.3
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -58,7 +58,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message += '\nhttp://errors.angularjs.org/1.4.2/' +
+    message += '\nhttp://errors.angularjs.org/1.4.3/' +
       (module ? module + '/' : '') + code;
 
     for (i = SKIP_INDEXES, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
@@ -2329,7 +2329,6 @@ function toDebugString(obj) {
   $$TestabilityProvider,
   $TimeoutProvider,
   $$RAFProvider,
-  $$AsyncCallbackProvider,
   $WindowProvider,
   $$jqLiteProvider,
   $$CookieReaderProvider
@@ -2351,11 +2350,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.4.2',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.4.3',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 4,
-  dot: 2,
-  codeName: 'nebular-readjustment'
+  dot: 3,
+  codeName: 'foam-acceleration'
 };
 
 
@@ -2490,7 +2489,6 @@ function publishExternalAPI(angular) {
         $timeout: $TimeoutProvider,
         $window: $WindowProvider,
         $$rAF: $$RAFProvider,
-        $$asyncCallback: $$AsyncCallbackProvider,
         $$jqLite: $$jqLiteProvider,
         $$HashMap: $$HashMapProvider,
         $$cookieReader: $$CookieReaderProvider
@@ -28364,12 +28362,12 @@ var minlengthDirective = function() {
 
 })(window, document);
 
-!window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js":[function(require,module,exports){
+!window.angular.$$csp() && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
+},{}],2:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/angular.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+},{"./angular":1}],3:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -28461,7 +28459,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/lodash/index.js":[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -40816,7 +40814,7 @@ process.umask = function() { return 0; };
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/q/q.js":[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -42868,7 +42866,7 @@ return Q;
 });
 
 }).call(this,require('_process'))
-},{"_process":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/browserify/node_modules/process/browser.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/app.js":[function(require,module,exports){
+},{"_process":3}],6:[function(require,module,exports){
 var angular = require('angular');
 
 angular.module('maps', [
@@ -42879,7 +42877,7 @@ angular.module('maps', [
     require('./services/procedure-renderer')
 ]);
 
-},{"./controllers/tools":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/controllers/tools.js","./services/active-procedures":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/active-procedures.js","./services/map":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/map.js","./services/procedure-renderer":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedure-renderer.js","./services/procedures":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedures.js","angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/controllers/tools.js":[function(require,module,exports){
+},{"./controllers/tools":7,"./services/active-procedures":9,"./services/map":10,"./services/procedure-renderer":11,"./services/procedures":12,"angular":2}],7:[function(require,module,exports){
 var angular = require('angular');
 var _ = require('lodash');
 
@@ -42944,7 +42942,7 @@ angular.module(moduleName, [])
     }, true);
 });
 
-},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js","lodash":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/lodash/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/dicts/symbols.js":[function(require,module,exports){
+},{"angular":2,"lodash":4}],8:[function(require,module,exports){
 module.exports = {
     'AA': {
         anchor: new google.maps.Point(11,11),
@@ -42996,7 +42994,7 @@ module.exports = {
     }
 };
 
-},{}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/active-procedures.js":[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var angular = require('angular');
 
 module.exports = moduleName = 'maps.services.active-procedures';
@@ -43024,7 +43022,7 @@ angular.module(moduleName, [])
     };
 });
 
-},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/map.js":[function(require,module,exports){
+},{"angular":2}],10:[function(require,module,exports){
 var angular = require('angular');
 
 module.exports = moduleName = 'maps.services.map';
@@ -43044,7 +43042,7 @@ angular.module(moduleName, [])
     return map;
 });
 
-},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedure-renderer.js":[function(require,module,exports){
+},{"angular":2}],11:[function(require,module,exports){
 var angular = require('angular');
 var _ = require('lodash');
 var symbols = require('../dicts/symbols');
@@ -43109,7 +43107,7 @@ angular.module(moduleName, [])
     };
 });
 
-},{"../dicts/symbols":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/dicts/symbols.js","angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js","lodash":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/lodash/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedures.js":[function(require,module,exports){
+},{"../dicts/symbols":8,"angular":2,"lodash":4}],12:[function(require,module,exports){
 var angular = require('angular');
 var Q = require('q');
 
@@ -43145,4 +43143,4 @@ angular.module(moduleName, [])
     };
 });
 
-},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js","q":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/q/q.js"}]},{},["/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/app.js"]);
+},{"angular":2,"q":5}]},{},[6]);

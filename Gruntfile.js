@@ -4,6 +4,11 @@ module.exports = function (grunt) {
             dev: {
                 files: {
                     'public/js/app.js': 'public/js/src/app.js'
+                }
+            },
+            watch: {
+                files: {
+                    'public/js/app.js': 'public/js/src/app.js'
                 },
                 options: {
                     keepAlive: true,
@@ -16,7 +21,7 @@ module.exports = function (grunt) {
                 options: {
                     logConcurrentOutput: true
                 },
-                tasks: ['nodemon', 'browserify:dev', 'watch:less', 'watch:livereload']
+                tasks: ['nodemon', 'browserify:watch', 'watch:less', 'watch:livereload']
             }
         },
         less: {

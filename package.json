@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "postinstall": "grunt browserify:dev less:dev",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.10.x"
   },
   "repository": {
     "type": "git",

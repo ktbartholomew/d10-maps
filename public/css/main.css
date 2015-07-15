@@ -7,6 +7,12 @@ html {
   margin: 0;
   padding: 0;
 }
+/* line 8, public/css/less/components/body.less */
+body *,
+html * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
 /* line 1, public/css/less/components/map-canvas.less */
 #canvas {
   height: 100%;
@@ -29,17 +35,41 @@ html {
   width: 20vw;
 }
 /* line 15, public/css/less/components/tools.less */
+#tools .filters {
+  border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+}
+/* line 21, public/css/less/components/tools.less */
 #tools .filter {
   display: block;
   margin: 0 auto;
   width: 90%;
 }
-/* line 20, public/css/less/components/tools.less */
+/* line 26, public/css/less/components/tools.less */
 #tools .filter + .filter {
   margin-top: 12px;
 }
-/* line 25, public/css/less/components/tools.less */
+/* line 31, public/css/less/components/tools.less */
+#tools h5 {
+  font-size: 13px;
+  margin: 0;
+  margin-bottom: 12px;
+}
+/* line 37, public/css/less/components/tools.less */
 #tools li a {
   color: #09f;
   cursor: pointer;
+}
+/* line 42, public/css/less/components/tools.less */
+#tools .search-results,
+#tools .active-procedures {
+  padding: 12px;
+}
+/* line 45, public/css/less/components/tools.less */
+#tools .search-results ul,
+#tools .active-procedures ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }

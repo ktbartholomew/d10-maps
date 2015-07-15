@@ -1,12 +1,14 @@
-<div class="filter name-filter">
-    <label>Airport</label>
-    <input type="text" placeholder="Airport name (e.g: KDFW)" data-ng-model="filter.airport">
+<div class="filters">
+    <div class="filter name-filter">
+        <label>Airport</label>
+        <input type="text" placeholder="Airport name (e.g: KDFW)" data-ng-model="filter.airport">
+    </div>
+    <div class="filter name-filter">
+        <label>Name</label>
+        <input type="text" placeholder="Procedure name (e.g: SEEVR)" data-ng-model="filter.name">
+    </div>
 </div>
-<div class="filter name-filter">
-    <label>Name</label>
-    <input type="text" placeholder="Procedure name (e.g: SEEVR)" data-ng-model="filter.name">
-</div>
-<div data-ng-show="searchResults.stars.length > 0">
+<div class="search-results" data-ng-show="searchResults.stars.length > 0">
     <h5>Arrivals</h5>
     <ul class="search-results">
         <li data-ng-repeat="star in searchResults.stars track by $index">
@@ -15,7 +17,7 @@
         </li>
     </ul>
 </div>
-<div data-ng-show="searchResults.dps.length > 0">
+<div class="search-results" data-ng-show="searchResults.dps.length > 0">
     <h5>Departures</h5>
     <ul class="search-results">
         <li data-ng-repeat="dp in searchResults.dps track by $index">
@@ -24,7 +26,7 @@
         </li>
     </ul>
 </div>
-<div data-ng-show="activeProcedures.length > 0">
+<div class="active-procedures" data-ng-show="activeProcedures.length > 0">
     <h5>Active Procedures</h5>
     <ul>
         <li data-ng-repeat="star in activeProcedures">

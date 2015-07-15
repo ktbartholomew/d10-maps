@@ -12,6 +12,12 @@
     transform: translateZ(0);
     width: 20vw;
 
+    .filters {
+        border-bottom: solid 1px fadeout(white, 50%);
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+
     .filter {
         display: block;
         margin: 0 auto;
@@ -22,8 +28,24 @@
         }
     }
 
+    h5 {
+        font-size: 13px;
+        margin: 0;
+        margin-bottom: 12px;
+    }
+
     li a {
         color: #09f;
         cursor: pointer;
+    }
+
+    .search-results, .active-procedures {
+        padding: 12px;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
     }
 }
