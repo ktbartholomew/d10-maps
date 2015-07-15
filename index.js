@@ -10,7 +10,7 @@ app.use(express.static('./public'));
 
 app.use('/stars', function (req, res) {
 
-    var stars = JSON.parse(fs.readFileSync('./public/maps/stardp.json', 'utf-8'));
+    var stars = JSON.parse(fs.readFileSync('./public/data/stardp.json', 'utf-8'));
     stars = _.filter(stars, function (item) {
         return item.type === 'STAR';
     });
@@ -35,7 +35,7 @@ app.use('/stars', function (req, res) {
 
 app.use('/dps', function (req, res) {
 
-    var dps = JSON.parse(fs.readFileSync('./public/maps/stardp.json', 'utf-8'));
+    var dps = JSON.parse(fs.readFileSync('./public/data/stardp.json', 'utf-8'));
     dps = _.filter(dps, function (item) {
         return item.type === 'DP';
     });
