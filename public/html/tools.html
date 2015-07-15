@@ -6,19 +6,28 @@
     <label>Name</label>
     <input type="text" placeholder="Procedure name (e.g: SEEVR)" data-ng-model="filter.name">
 </div>
-<div data-ng-show="searchResults.length > 0">
-    <h5>Search Results</h5>
+<div data-ng-show="searchResults.stars.length > 0">
+    <h5>Arrivals</h5>
     <ul class="search-results">
-        <li data-ng-repeat="star in searchResults track by $index">
+        <li data-ng-repeat="star in searchResults.stars track by $index">
             <a data-ng-click="selectProcedure(star)">ADD</a>
             {{ star.name }}
         </li>
     </ul>
 </div>
-<div data-ng-show="ActiveProcedures.length > 0">
+<div data-ng-show="searchResults.dps.length > 0">
+    <h5>Departures</h5>
+    <ul class="search-results">
+        <li data-ng-repeat="dp in searchResults.dps track by $index">
+            <a data-ng-click="selectProcedure(dp)">ADD</a>
+            {{ dp.name }}
+        </li>
+    </ul>
+</div>
+<div data-ng-show="activeProcedures.length > 0">
     <h5>Active Procedures</h5>
     <ul>
-        <li data-ng-repeat="star in ActiveProcedures">
+        <li data-ng-repeat="star in activeProcedures">
             <a data-ng-click="removeProcedure(star)">DEL</a> {{ star.name }}
         </li>
     </ul>

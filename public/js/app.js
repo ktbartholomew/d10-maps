@@ -42875,12 +42875,11 @@ angular.module('maps', [
     require('./controllers/tools'),
     require('./services/active-procedures'),
     require('./services/map'),
-    require('./services/procedures')
+    require('./services/procedures'),
+    require('./services/procedure-renderer')
 ]);
 
-// require('./components/draw-procedure.js');
-
-},{"./controllers/tools":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/controllers/tools.js","./services/active-procedures":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/active-procedures.js","./services/map":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/map.js","./services/procedures":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedures.js","angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/controllers/tools.js":[function(require,module,exports){
+},{"./controllers/tools":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/controllers/tools.js","./services/active-procedures":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/active-procedures.js","./services/map":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/map.js","./services/procedure-renderer":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedure-renderer.js","./services/procedures":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedures.js","angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/controllers/tools.js":[function(require,module,exports){
 var angular = require('angular');
 var _ = require('lodash');
 
@@ -42888,27 +42887,38 @@ module.exports = moduleName = 'maps.controllers.tools';
 
 angular.module(moduleName, [])
 .controller('ToolsCtrl', function ($scope, ActiveProcedures, Procedures) {
-    $scope.ActiveProcedures = ActiveProcedures;
-
-    $scope.searchResults = [];
-
+    $scope.activeProcedures = [];
+    $scope.searchResults = {
+        stars: [],
+        dps: []
+    };
     $scope.filter = {
         name: '',
         airport: ''
     };
 
     $scope.selectProcedure = function (star) {
-        $scope.ActiveProcedures.push(star);
+        ActiveProcedures.push(star);
+        $scope.filter.airport = '';
         $scope.filter.name = '';
-        $scope.searchResults = [];
+        $scope.searchResults = {
+            stars: [],
+            dps: []
+        };
+
+        $scope.activeProcedures = ActiveProcedures.get();
     };
 
     $scope.removeProcedure = function (star) {
-        $scope.ActiveProcedures = _.reject($scope.ActiveProcedures, {name: star.name});
+        ActiveProcedures.set(_.reject(ActiveProcedures.get(), {name: star.name}));
+        $scope.activeProcedures = ActiveProcedures.get();
     };
 
     $scope.$watch('filter', function (newVal, oldVal) {
-        $scope.searchResults = [];
+        $scope.searchResults = {
+            stars: [],
+            dps: []
+        };
 
         if(typeof newVal === 'undefined' || (newVal.name === '' &&  newVal.airport === '')) {
             return;
@@ -42918,7 +42928,7 @@ angular.module(moduleName, [])
         .then(function (data) {
             $scope.$apply(function () {
                 _.forEach(data, function (item) {
-                    $scope.searchResults.push(item);
+                    $scope.searchResults.stars.push(item);
                 });
             });
         });
@@ -42927,21 +42937,91 @@ angular.module(moduleName, [])
         .then(function (data) {
             $scope.$apply(function () {
                 _.forEach(data, function (item) {
-                    $scope.searchResults.push(item);
+                    $scope.searchResults.dps.push(item);
                 });
             });
         });
     }, true);
 });
 
-},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js","lodash":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/lodash/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/active-procedures.js":[function(require,module,exports){
+},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js","lodash":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/lodash/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/dicts/symbols.js":[function(require,module,exports){
+module.exports = {
+    'AA': {
+        anchor: new google.maps.Point(11,11),
+        path: 'M16,11c0,2.8-2.2,5-5,5s-5-2.2-5-5s2.2-5,5-5S16,8.2,16,11z M11,6V4 M6,11H4 M11,16v2 M16,11h2',
+        fillColor: '#333333',
+        fillOpacity: 1,
+        strokeColor: '#C800C8',
+        strokeWeight: 1
+    },
+    'NA': {
+        anchor: new google.maps.Point(11,11),
+        path: 'M16,11c0,2.8-2.2,5-5,5s-5-2.2-5-5s2.2-5,5-5S16,8.2,16,11z M11,6V4 M6,11H4 M11,16v2 M16,11h2',
+        fillColor: '#333333',
+        fillOpacity: 1,
+        strokeColor: '#C800C8',
+        strokeWeight: 1
+    },
+    'P': {
+        anchor: new google.maps.Point(11,11),
+        path: 'M9.8,7L11,4l1.2,3c0.5,1.3,1.5,2.3,2.8,2.8l3,1.2l-3,1.2c-1.3,0.5-2.3,1.5-2.8,2.8L11,18l-1.2-3c-0.5-1.3-1.5-2.3-2.8-2.8L4,11l3-1.2C8.3,9.3,9.3,8.3,9.8,7z',
+        fillColor: '#333333',
+        fillOpacity: 1,
+        strokeColor: '#C800C8',
+        strokeWeight: 1
+    },
+    'R': {
+        anchor: new google.maps.Point(11,11),
+        path: 'M5,16l6-10.4L17,16H5z',
+        fillColor: '#333333',
+        fillOpacity: 1,
+        strokeColor: '#C800C8',
+        strokeWeight: 1
+    },
+    'ND': {
+        anchor: new google.maps.Point(11,11),
+        path: 'M8,17l-3-5.5L8,6h6l3,5.5L14,17H8z',
+        fillColor: '#333333',
+        fillOpacity: 1,
+        strokeColor: '#C800C8',
+        strokeWeight: 1
+    },
+    'NW': {
+        anchor: new google.maps.Point(11,11),
+        path: 'M8,17l-3-5.5L8,6h6l3,5.5L14,17H8z',
+        fillColor: '#333333',
+        fillOpacity: 1,
+        strokeColor: '#C800C8',
+        strokeWeight: 1
+    }
+};
+
+},{}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/active-procedures.js":[function(require,module,exports){
 var angular = require('angular');
 
 module.exports = moduleName = 'maps.services.active-procedures';
 
 angular.module(moduleName, [])
-.factory('ActiveProcedures', function () {
-    return [];
+.factory('ActiveProcedures', function (ProcedureRenderer) {
+    var ActiveProcedures = [];
+
+    var renderProcedures = function () {
+        ProcedureRenderer.draw(ActiveProcedures);
+    };
+
+    return {
+        get: function () {
+            return ActiveProcedures;
+        },
+        push: function () {
+            Array.prototype.push.apply(ActiveProcedures, arguments);
+            renderProcedures();
+        },
+        set: function (input) {
+            ActiveProcedures = input;
+            renderProcedures();
+        }
+    };
 });
 
 },{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/map.js":[function(require,module,exports){
@@ -42964,7 +43044,72 @@ angular.module(moduleName, [])
     return map;
 });
 
-},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedures.js":[function(require,module,exports){
+},{"angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedure-renderer.js":[function(require,module,exports){
+var angular = require('angular');
+var _ = require('lodash');
+var symbols = require('../dicts/symbols');
+
+module.exports = moduleName = 'maps.services.procedure-renderer';
+
+angular.module(moduleName, [])
+.factory('ProcedureRenderer', function (Map) {
+    var colorize = function (symbol, color) {
+        symbol.strokeColor = color;
+        return symbol;
+    };
+
+    var drawnItems = [];
+
+    var clearLines = function () {
+        _.forEach(drawnItems, function (item){
+            item.setMap(null);
+        });
+    };
+
+    return {
+        draw: function (procedures) {
+            clearLines();
+            procedures.forEach(function (procedure, index, scope) {
+                var procedureColor = (procedure.type === 'STAR') ? 'rgb(200,0,200)' : 'rgb(0,200,200)';
+
+                procedure.legs.forEach(function (leg, index, scope) {
+                    var path = [];
+
+                    leg.points.forEach(function (point, index, scope) {
+                        if(['AA','NA','ND','NW','P','R'].indexOf(point.type) !== -1) {
+                            var waypoint = new google.maps.Marker({
+                                position: new google.maps.LatLng(point.lat, point.lon),
+                                icon: colorize(symbols[point.type], procedureColor),
+                                map: Map,
+                                title: point.name || point.identifier
+                            });
+                            drawnItems.push(waypoint);
+                        }
+
+                        if(['NA','AA'].indexOf(point.type) !== -1) {
+                            return;
+                        }
+
+                        path.push(new google.maps.LatLng(point.lat, point.lon));
+                    });
+
+                    var line = new google.maps.Polyline({
+                      path: path,
+                      geodesic: true,
+                      strokeColor: procedureColor,
+                      strokeOpacity: 1,
+                      strokeWeight: 2
+                    });
+
+                    line.setMap(Map);
+                    drawnItems.push(line);
+                });
+            });
+        }
+    };
+});
+
+},{"../dicts/symbols":"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/dicts/symbols.js","angular":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/angular/index.js","lodash":"/Users/keit8924/Code/ktbartholomew/d10-maps/node_modules/lodash/index.js"}],"/Users/keit8924/Code/ktbartholomew/d10-maps/public/js/src/services/procedures.js":[function(require,module,exports){
 var angular = require('angular');
 var Q = require('q');
 

@@ -5,27 +5,38 @@ module.exports = moduleName = 'maps.controllers.tools';
 
 angular.module(moduleName, [])
 .controller('ToolsCtrl', function ($scope, ActiveProcedures, Procedures) {
-    $scope.ActiveProcedures = ActiveProcedures;
-
-    $scope.searchResults = [];
-
+    $scope.activeProcedures = [];
+    $scope.searchResults = {
+        stars: [],
+        dps: []
+    };
     $scope.filter = {
         name: '',
         airport: ''
     };
 
     $scope.selectProcedure = function (star) {
-        $scope.ActiveProcedures.push(star);
+        ActiveProcedures.push(star);
+        $scope.filter.airport = '';
         $scope.filter.name = '';
-        $scope.searchResults = [];
+        $scope.searchResults = {
+            stars: [],
+            dps: []
+        };
+
+        $scope.activeProcedures = ActiveProcedures.get();
     };
 
     $scope.removeProcedure = function (star) {
-        $scope.ActiveProcedures = _.reject($scope.ActiveProcedures, {name: star.name});
+        ActiveProcedures.set(_.reject(ActiveProcedures.get(), {name: star.name}));
+        $scope.activeProcedures = ActiveProcedures.get();
     };
 
     $scope.$watch('filter', function (newVal, oldVal) {
-        $scope.searchResults = [];
+        $scope.searchResults = {
+            stars: [],
+            dps: []
+        };
 
         if(typeof newVal === 'undefined' || (newVal.name === '' &&  newVal.airport === '')) {
             return;
@@ -35,7 +46,7 @@ angular.module(moduleName, [])
         .then(function (data) {
             $scope.$apply(function () {
                 _.forEach(data, function (item) {
-                    $scope.searchResults.push(item);
+                    $scope.searchResults.stars.push(item);
                 });
             });
         });
@@ -44,7 +55,7 @@ angular.module(moduleName, [])
         .then(function (data) {
             $scope.$apply(function () {
                 _.forEach(data, function (item) {
-                    $scope.searchResults.push(item);
+                    $scope.searchResults.dps.push(item);
                 });
             });
         });
