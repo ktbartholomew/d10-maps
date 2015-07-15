@@ -58,6 +58,6 @@ app.use('/dps', function (req, res) {
     res.send(dps);
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(process.env.port || 3000, function () {
     console.log('Listening on http://localhost:' + server.address().port);
 });
