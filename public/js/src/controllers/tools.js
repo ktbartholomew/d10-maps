@@ -17,12 +17,12 @@ angular.module(moduleName, [])
 
     $scope.selectProcedure = function (star) {
         ActiveProcedures.push(star);
-        $scope.filter.airport = '';
-        $scope.filter.name = '';
-        $scope.searchResults = {
-            stars: [],
-            dps: []
-        };
+        // $scope.filter.airport = '';
+        // $scope.filter.name = '';
+        // $scope.searchResults = {
+        //     stars: [],
+        //     dps: []
+        // };
 
         $scope.activeProcedures = ActiveProcedures.get();
     };
@@ -30,6 +30,18 @@ angular.module(moduleName, [])
     $scope.removeProcedure = function (star) {
         ActiveProcedures.set(_.reject(ActiveProcedures.get(), {name: star.name}));
         $scope.activeProcedures = ActiveProcedures.get();
+    };
+
+    $scope.isActive = function (procedure) {
+        return (typeof _.find($scope.activeProcedures, {name: procedure.name}) !== 'undefined');
+    };
+
+    $scope.toggleProcedure = function (procedure) {
+        if($scope.isActive(procedure)) {
+            return $scope.removeProcedure(procedure);
+        }
+
+        return $scope.selectProcedure(procedure);
     };
 
     $scope.$watch('filter', function (newVal, oldVal) {

@@ -27,7 +27,8 @@ module.exports = function (grunt) {
         less: {
             dev: {
                 options: {
-                    dumpLineNumbers: 'comments'
+                    dumpLineNumbers: 'comments',
+                    paths: ['public/components']
                 },
                 files: {
                     'public/css/main.css': ['public/css/less/main.less']

@@ -10,28 +10,32 @@
     </div>
 </div>
 <div class="search-results" data-ng-show="searchResults.stars.length > 0">
-    <h5>Arrivals</h5>
+    <h5 class="title">Arrivals</h5>
     <ul class="search-results">
-        <li data-ng-repeat="star in searchResults.stars track by $index">
-            <a data-ng-click="selectProcedure(star)">ADD</a>
+        <li data-ng-repeat="star in searchResults.stars track by $index" data-ng-class="{'active': isActive(star)}">
+            <a data-ng-click="toggleProcedure(star)" class="toggle-link" data-ng-class="{'active': isActive(star)}"><span class="fa fa-plus"></span></a>
             {{ star.name }}
+            <a class="chart-link" data-ng-if="star.charts[0]" data-ng-href="{{star.charts[0].url}}" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
         </li>
     </ul>
 </div>
 <div class="search-results" data-ng-show="searchResults.dps.length > 0">
-    <h5>Departures</h5>
+    <h5 class="title">Departures</h5>
     <ul class="search-results">
-        <li data-ng-repeat="dp in searchResults.dps track by $index">
-            <a data-ng-click="selectProcedure(dp)">ADD</a>
+        <li data-ng-repeat="dp in searchResults.dps track by $index" data-ng-class="{'active': isActive(dp)}">
+            <a data-ng-click="toggleProcedure(dp)" class="toggle-link" data-ng-class="{'active': isActive(dp)}"><span class="fa fa-plus"></span></a>
             {{ dp.name }}
+            <a class="chart-link" data-ng-if="dp.charts[0]" data-ng-href="{{dp.charts[0].url}}" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
         </li>
     </ul>
 </div>
 <div class="active-procedures" data-ng-show="activeProcedures.length > 0">
-    <h5>Active Procedures</h5>
+    <h5 class="title">Active Procedures</h5>
     <ul>
         <li data-ng-repeat="star in activeProcedures">
-            <a data-ng-click="removeProcedure(star)">DEL</a> {{ star.name }}
+            <a data-ng-click="removeProcedure(star)" class="toggle-link active"><span class="fa fa-plus"></span></a>
+            {{ star.name }}
+            <a class="chart-link" data-ng-if="star.charts[0]" data-ng-href="{{star.charts[0].url}}" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
         </li>
     </ul>
 </div>

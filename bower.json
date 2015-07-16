@@ -1,0 +1,20 @@
+{
+  "name": "d10-maps",
+  "main": "index.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ktbartholomew/d10-maps",
+  "authors": [
+    "Keith Bartholomew <keith.bartholomew@rackspace.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fontawesome": "~4.3.0"
+  }
+}
