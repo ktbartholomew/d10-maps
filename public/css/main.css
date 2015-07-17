@@ -2390,34 +2390,50 @@ html * {
   width: 20vw;
 }
 /* line 17, public/css/less/components/tools.less */
+#tools::-webkit-scrollbar {
+  background: transparent;
+  height: 6px;
+  width: 6px;
+}
+/* line 23, public/css/less/components/tools.less */
+#tools::-webkit-scrollbar-track:vertical {
+  background: rgba(255, 255, 255, 0.2);
+}
+/* line 27, public/css/less/components/tools.less */
+#tools::-webkit-scrollbar-thumb:vertical {
+  background: rgba(255, 255, 255, 0.5);
+}
+/* line 31, public/css/less/components/tools.less */
 #tools .title {
   margin: 0 0 12px 0;
   text-align: center;
 }
-/* line 22, public/css/less/components/tools.less */
+/* line 36, public/css/less/components/tools.less */
 #tools .filters {
   border-bottom: solid 1px rgba(255, 255, 255, 0.2);
   margin-bottom: 12px;
   padding-bottom: 12px;
 }
-/* line 28, public/css/less/components/tools.less */
+/* line 42, public/css/less/components/tools.less */
 #tools .filter {
   display: block;
   margin: 0 auto;
   width: 90%;
 }
-/* line 33, public/css/less/components/tools.less */
+/* line 47, public/css/less/components/tools.less */
 #tools .filter + .filter {
   margin-top: 12px;
 }
-/* line 37, public/css/less/components/tools.less */
+/* line 51, public/css/less/components/tools.less */
 #tools .filter label {
   display: inline-block;
   margin-right: -0.35em;
   width: 25%;
 }
-/* line 43, public/css/less/components/tools.less */
+/* line 57, public/css/less/components/tools.less */
 #tools .filter input {
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.8);
   border: solid 1px rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-family: Consolas, Monaco, monospace;
@@ -2425,35 +2441,35 @@ html * {
   padding: 0.5em 1em;
   width: 75%;
 }
-/* line 53, public/css/less/components/tools.less */
+/* line 69, public/css/less/components/tools.less */
 #tools h5 {
   font-size: 13px;
   margin: 0;
   margin-bottom: 12px;
 }
-/* line 59, public/css/less/components/tools.less */
+/* line 75, public/css/less/components/tools.less */
 #tools li a {
   color: #09f;
   cursor: pointer;
 }
-/* line 64, public/css/less/components/tools.less */
+/* line 80, public/css/less/components/tools.less */
 #tools .search-results,
 #tools .active-procedures {
   font-size: 14px;
 }
-/* line 67, public/css/less/components/tools.less */
+/* line 83, public/css/less/components/tools.less */
 #tools .search-results .title,
 #tools .active-procedures .title {
   margin: 0;
 }
-/* line 71, public/css/less/components/tools.less */
+/* line 87, public/css/less/components/tools.less */
 #tools .search-results ul,
 #tools .active-procedures ul {
   list-style-type: none;
   margin: 0;
   padding: 12px 0;
 }
-/* line 76, public/css/less/components/tools.less */
+/* line 92, public/css/less/components/tools.less */
 #tools .search-results ul li,
 #tools .active-procedures ul li {
   border-top: solid 1px rgba(255, 255, 255, 0.1);
@@ -2469,29 +2485,29 @@ html * {
   -o-user-select: none;
   user-select: none;
 }
-/* line 84, public/css/less/components/tools.less */
+/* line 100, public/css/less/components/tools.less */
 #tools .search-results ul li:last-child,
 #tools .active-procedures ul li:last-child {
   border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }
-/* line 88, public/css/less/components/tools.less */
+/* line 104, public/css/less/components/tools.less */
 #tools .search-results ul li.active,
 #tools .active-procedures ul li.active {
   background: rgba(255, 255, 255, 0.05);
 }
-/* line 92, public/css/less/components/tools.less */
+/* line 108, public/css/less/components/tools.less */
 #tools .search-results ul li .fa,
 #tools .active-procedures ul li .fa {
   font-size: 16px;
   line-height: 32px;
 }
-/* line 97, public/css/less/components/tools.less */
+/* line 113, public/css/less/components/tools.less */
 #tools .search-results ul li .chart-link,
 #tools .active-procedures ul li .chart-link {
   position: absolute;
   right: 12px;
 }
-/* line 105, public/css/less/components/tools.less */
+/* line 121, public/css/less/components/tools.less */
 #tools .search-results .toggle-link .fa,
 #tools .active-procedures .toggle-link .fa {
   -webkit-transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
@@ -2499,7 +2515,7 @@ html * {
   -o-transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
   transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
-/* line 110, public/css/less/components/tools.less */
+/* line 126, public/css/less/components/tools.less */
 #tools .search-results .toggle-link.active .fa,
 #tools .active-procedures .toggle-link.active .fa {
   color: #c33;
