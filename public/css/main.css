@@ -2378,7 +2378,7 @@ html * {
   color: white;
   font-size: 12px;
   height: 100vh;
-  min-width: 320px;
+  min-width: 240px;
   -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
   overflow-y: scroll;

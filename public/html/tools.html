@@ -32,7 +32,7 @@
 <div class="active-procedures" data-ng-show="activeProcedures.length > 0">
     <h5 class="title">Active Procedures</h5>
     <ul>
-        <li data-ng-repeat="star in activeProcedures">
+        <li data-ng-repeat="star in activeProcedures track by $index">
             <a data-ng-click="removeProcedure(star)" class="toggle-link active"><span class="fa fa-plus"></span></a>
             {{ star.name }}
             <a class="chart-link" data-ng-if="star.charts[0]" data-ng-href="{{star.charts[0].url}}" target="_blank"><span class="fa fa-file-pdf-o"></span></a>

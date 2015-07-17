@@ -1,14 +1,31 @@
 var angular = require('angular');
 
-module.exports = moduleName = 'maps.services.active-procedures';
+var moduleName = 'maps.services.active-procedures';
+module.exports = moduleName;
 
 angular.module(moduleName, [])
 .factory('ActiveProcedures', function (ProcedureRenderer) {
-    var ActiveProcedures = [];
+
+    var storage = {
+        read: function () {
+            if(!localStorage.getItem(moduleName)) {
+                localStorage.setItem(moduleName, JSON.stringify([]));
+            }
+
+            return JSON.parse(localStorage.getItem(moduleName));
+        },
+        write: function (data) {
+            localStorage.setItem(moduleName, JSON.stringify(data));
+        }
+    };
 
     var renderProcedures = function () {
         ProcedureRenderer.draw(ActiveProcedures);
     };
+
+    var ActiveProcedures = storage.read();
+
+    renderProcedures();
 
     return {
         get: function () {
@@ -16,10 +33,14 @@ angular.module(moduleName, [])
         },
         push: function () {
             Array.prototype.push.apply(ActiveProcedures, arguments);
+            storage.write(ActiveProcedures);
+
             renderProcedures();
         },
         set: function (input) {
             ActiveProcedures = input;
+            storage.write(ActiveProcedures);
+
             renderProcedures();
         }
     };

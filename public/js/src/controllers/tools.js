@@ -5,7 +5,7 @@ module.exports = moduleName = 'maps.controllers.tools';
 
 angular.module(moduleName, [])
 .controller('ToolsCtrl', function ($scope, ActiveProcedures, Procedures) {
-    $scope.activeProcedures = [];
+    $scope.activeProcedures = ActiveProcedures.get();
     $scope.searchResults = {
         stars: [],
         dps: []
@@ -17,13 +17,6 @@ angular.module(moduleName, [])
 
     $scope.selectProcedure = function (star) {
         ActiveProcedures.push(star);
-        // $scope.filter.airport = '';
-        // $scope.filter.name = '';
-        // $scope.searchResults = {
-        //     stars: [],
-        //     dps: []
-        // };
-
         $scope.activeProcedures = ActiveProcedures.get();
     };
 
