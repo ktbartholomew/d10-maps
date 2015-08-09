@@ -43748,6 +43748,7 @@ angular.module(moduleName, [])
         stars: [],
         dps: []
     };
+    $scope.searchInProgress = false;
     $scope.filter = {
         name: '',
         airport: ''
@@ -43776,6 +43777,10 @@ angular.module(moduleName, [])
     };
 
     $scope.$watch('filter', function (newVal, oldVal) {
+        if($scope.searchInProgress) {
+            return;
+        }
+
         $scope.searchResults = {
             stars: [],
             dps: []
@@ -43785,8 +43790,11 @@ angular.module(moduleName, [])
             return;
         }
 
+        $scope.searchInProgress = true;
+
         Procedures.getStars(newVal)
         .then(function (data) {
+            $scope.searchInProgress = false;
             $scope.$apply(function () {
                 _.forEach(data, function (item) {
                     $scope.searchResults.stars.push(item);
@@ -43796,6 +43804,7 @@ angular.module(moduleName, [])
 
         Procedures.getDps(newVal)
         .then(function (data) {
+            $scope.searchInProgress = false;
             $scope.$apply(function () {
                 _.forEach(data, function (item) {
                     $scope.searchResults.dps.push(item);

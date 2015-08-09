@@ -2,6 +2,7 @@ var fs = require('fs');
 var _ = require('lodash');
 var express = require('express');
 var compression = require('compression');
+var airacCycle = require('./src/lib/airac-cycle');
 
 var app = express();
 
@@ -10,7 +11,9 @@ app.use(express.static('./public'));
 
 app.use('/stars', function (req, res) {
 
-    var stars = JSON.parse(fs.readFileSync('./public/data/stardp.json', 'utf-8'));
+    var stars = fs.readFileSync('./public/data/stardp.json', 'utf-8');
+    stars = stars.replace(/\{cycle\}/g, airacCycle());
+    stars = JSON.parse(stars);
     stars = _.filter(stars, function (item) {
         return item.type === 'STAR';
     });
@@ -35,7 +38,9 @@ app.use('/stars', function (req, res) {
 
 app.use('/dps', function (req, res) {
 
-    var dps = JSON.parse(fs.readFileSync('./public/data/stardp.json', 'utf-8'));
+    var dps = fs.readFileSync('./public/data/stardp.json', 'utf-8');
+    dps = dps.replace(/\{cycle\}/g, airacCycle());
+    dps = JSON.parse(dps);
     dps = _.filter(dps, function (item) {
         return item.type === 'DP';
     });
